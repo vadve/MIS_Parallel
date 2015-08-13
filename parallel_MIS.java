@@ -9,14 +9,14 @@ class parallel_MIS
 	       nodes[0] = v;
 	       for(int i =0; i < v.neighbors.length; i++)
 	           nodes[i+1] = v.neighbors[i];
-	       // TODO: sort nodes by index
+	       
 	       Arrays.sort(nodes, new Comparator<AdjacencyGraph.Node>(){
                 @Override
-                public int compare(AdjacencyGraph.Node n1,AdjacencyGraph.Node n2){
-                    return n1.index - n2.index;
-                }
-            });
-	       check(nodes,0,v);
+                   public int compare(AdjacencyGraph.Node n1,AdjacencyGraph.Node n2){
+                       return n1.index - n2.index;
+                   }
+               });
+               check(nodes,0,v);
 	}
 
 	// recursive function to acquire locks on v and all its neighbors
