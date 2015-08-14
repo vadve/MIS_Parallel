@@ -18,10 +18,10 @@ class parallel_MIS
 		System.out.println(count + " vertices in MIS");
 	}
    
-	public static void main(String[] args) throws java.io.IOException
+	public static void main(String[] args) throws java.io.IOException, java.lang.InterruptedException
 	{
 		AdjacencyGraph g = AdjacencyGraph.readAdjacencyGraph(args[0]);
-		final int NUM_THREADS = 32;
+		final int NUM_THREADS = args[1];
 		int size = g.nodes.length / NUM_THREADS;
 		List<Thread> threads = new ArrayList<Thread>();
 		final long start_time = System.currentTimeMillis();
@@ -32,17 +32,9 @@ class parallel_MIS
 			worker.setName(String.valueOf(i));
 			worker.start();
 			threads.add(worker);
-		}
-		int threads_running = 0;
-		do
-		{
-			threads_running = 0;
-			for(Thread thread : threads)
-			{
-				if(thread.isAlive())
-					threads_running++;
-			}
-		}while(threads_running > 0);
+		} 
+		for(int i=0; i < NUM_THREADS; i++)
+			threads.get(i).join();
 		final long end_time = System.currentTimeMillis();
 		System.out.println("Run time was: " + (end_time - start_time) + " milliseconds");
 		countMIS(g);
