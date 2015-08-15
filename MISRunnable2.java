@@ -43,10 +43,10 @@ public class MISRunnable2 implements Runnable
 	    else
                 nodes[i].lock.readLock().lock();
         }
-        
+        try{ 
 	boolean flag = true;
         for(AdjacencyGraph.Node u : v.neighbors)
-        {
+        {	 
             if(u.inMIS)
             {
                 flag = false;
@@ -55,14 +55,14 @@ public class MISRunnable2 implements Runnable
         }
         if(flag)
            v.inMIS = true;
-        
+        }finally{
         for(int i = 0; i < nodes.length; i++)
         {
             if(nodes[i] == v)
                nodes[i].lock.writeLock().unlock();
             else
                nodes[i].lock.readLock().unlock();
-        }
+        }}
     }
 
 
