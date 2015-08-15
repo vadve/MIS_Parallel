@@ -1,13 +1,13 @@
 import java.io.*;
 import java.util.*;
-
+import java.util.concurrent.locks.*;
 public class AdjacencyGraph {
     
     static class Node {
         final int index;
         Node[] neighbors;
         boolean inMIS = false;
-        
+        public final ReadWriteLock lock = new ReentrantReadWriteLock(); 
         Node(int index) {
             super();
             {
