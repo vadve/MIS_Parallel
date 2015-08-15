@@ -21,7 +21,7 @@ class parallel_MIS
 	public static void main(String[] args) throws java.io.IOException, java.lang.InterruptedException
 	{
 		AdjacencyGraph g = AdjacencyGraph.readAdjacencyGraph(args[0]);
-		final int NUM_THREADS = args[1];
+		final int NUM_THREADS = Integer.parseInt(args[1]);
 		int size = g.nodes.length / NUM_THREADS;
 		List<Thread> threads = new ArrayList<Thread>();
 		final long start_time = System.currentTimeMillis();
