@@ -16,7 +16,7 @@ public class AdjacencyGraph {
             }
             {
             }
-	    lock = new ReentrantReadWriteLock();
+	    this.lock = new ReentrantReadWriteLock();
             this.index = index;
         }
         
