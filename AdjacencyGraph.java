@@ -7,7 +7,7 @@ public class AdjacencyGraph {
         final int index;
         Node[] neighbors;
         boolean inMIS = false;
-        public final ReadWriteLock lock = new ReentrantReadWriteLock(); 
+        public final ReadWriteLock lock; 
         Node(int index) {
             super();
             {
@@ -16,6 +16,7 @@ public class AdjacencyGraph {
             }
             {
             }
+	    lock = new ReentrantReadWriteLock();
             this.index = index;
         }
         
