@@ -35,15 +35,14 @@ public class MISRunnable2 implements Runnable
 
     public static void check(AdjacencyGraph.Node[] nodes, AdjacencyGraph.Node v)
     {
-
+       try{
         for(int i = 0; i < nodes.length; i++)
         {
             if(nodes[i] == v)
 	        nodes[i].lock.writeLock().lock();
 	    else
                 nodes[i].lock.readLock().lock();
-        }
-        try{ 
+        } 
 	boolean flag = true;
         for(AdjacencyGraph.Node u : v.neighbors)
         {	 
