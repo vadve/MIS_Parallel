@@ -27,7 +27,7 @@ class parallel_MIS
 		final long start_time = System.currentTimeMillis();
 		for(int i = 0; i < NUM_THREADS; i++)
 		{
-			Runnable task = new MISRunnable(i*size, (i+1)*size, g.nodes);
+			Runnable task = new MISRunnable3(i*size, (i+1)*size, g.nodes);
 			Thread worker = new Thread(task);
 			worker.setName(String.valueOf(i));
 			worker.start();
