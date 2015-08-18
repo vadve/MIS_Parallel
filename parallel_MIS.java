@@ -38,7 +38,7 @@ class parallel_MIS
                 for(int i = 0; i < NUM_THREADS; i++)
                     threads_sort.get(i).join();
                 final long end_sort = System.currentTimeMillis();
-                System.out.println("sort time: " + (start_sort - end_sort)+ "milliseconds");
+                System.out.println("sort time: " + (end_sort - start_sort)+ "milliseconds");
 
 		List<Thread> threads = new ArrayList<Thread>();
 		final long start_time = System.currentTimeMillis();
