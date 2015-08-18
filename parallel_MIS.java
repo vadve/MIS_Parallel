@@ -23,6 +23,23 @@ class parallel_MIS
 		AdjacencyGraph g = AdjacencyGraph.readAdjacencyGraph(args[0]);
 		final int NUM_THREADS = Integer.parseInt(args[1]);
 		int size = g.nodes.length / NUM_THREADS;
+
+                List<Thread> threads_sort = new ArrayList<Thread>();
+                final long start_sort = System.currentTimeMillis();
+                for(int i = 0; i < NUM_THREADS; i++)
+                {
+                    Runnable task = new GraphSortRunnable(i*size, (i+1)*size, g.nodes);
+                    Thread worker = new Thread(task);
+                    
+                    worker.setName(String.valueOf(i));
+                    worker.start();
+                    threads_sort.add(worker);
+                }
+                for(int i = 0; i < NUM_THREADS; i++)
+                    threads_sort.get(i).join();
+                final long end_sort = System.currentTimeMillis();
+                System.out.println("sort time: " + (start_sort - end_sort)+ "milliseconds");
+
 		List<Thread> threads = new ArrayList<Thread>();
 		final long start_time = System.currentTimeMillis();
 		for(int i = 0; i < NUM_THREADS; i++)
@@ -36,7 +53,7 @@ class parallel_MIS
 		for(int i=0; i < NUM_THREADS; i++)
 			threads.get(i).join();
 		final long end_time = System.currentTimeMillis();
-		System.out.println("Run time was: " + (end_time - start_time) + " milliseconds");
+		System.out.println("MIS time: " + (end_time - start_time) + " milliseconds");
 		countMIS(g);
 
 	}

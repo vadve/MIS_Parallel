@@ -2,12 +2,19 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.locks.*;
 public class AdjacencyGraph {
+
+    static Comparator<Node> comp = new Comparator<Node>(){
+        @Override
+        public int compare(Node n1,Node n2){
+            return n1.index - n2.index;
+        }
+    };
     
     static class Node {
         final int index;
         Node[] neighbors;
         boolean inMIS = false;
-        public final ReadWriteLock lock = new ReentrantReadWriteLock();
+       // public final ReadWriteLock lock = new ReentrantReadWriteLock();
         Node(int index) {
             super();
             {
@@ -36,6 +43,10 @@ public class AdjacencyGraph {
         nodes = new Node[n];
     }
     
+    public static void sort_neighbors(Node n)
+    {
+        Arrays.sort(n.neighbors,comp);
+    }
     static AdjacencyGraph readAdjacencyGraph(String file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         if (!"AdjacencyGraph".equals(reader.readLine())) {
@@ -63,12 +74,9 @@ public class AdjacencyGraph {
             for (int j = startOffset; j < endOffset; j++) {
                 g.nodes[i].neighbors[j - startOffset] = g.nodes[edges[j]];
             }
-            Arrays.sort(g.nodes[i].neighbors, new Comparator<Node>(){
-                @Override
-                public int compare(Node n1, Node n2){
-                    return n1.index - n2.index;
-                }
-            });
+          
+
         }
         return g;
- }   }
+     }  
+ }
